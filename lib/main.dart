@@ -1,25 +1,34 @@
-import 'package:api_learning/homepage.dart';
+import 'package:api_learning/features/posts/apiService/posts_api.dart';
+import 'package:api_learning/features/posts/bloc/posts_bloc.dart';
+import 'package:api_learning/features/posts/ui/post_homepage.dart';
+import 'package:api_learning/features/user/list/api/api_service.dart';
+import 'package:api_learning/features/user/list/bloc/user_bloc.dart';
+import 'package:api_learning/features/user/list/ui/home_page.dart';
+import 'package:api_learning/features/user/list/ui/user_homepage_using_bloc.dart';
+import 'package:api_learning/features/user/list/ui/user_homepage_using_cubit.dart';
 import 'package:flutter/material.dart';
-void main(){
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'features/user/list/bloc_cubit/user_listing_cubit.dart';
+
+void main() {
   runApp(MyApp());
 }
-class MyApp extends StatefulWidget {
+
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _api_fetchState();
-}
-
-class _api_fetchState extends State<MyApp> {
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.red,
-          title:Center(child: const Text("API Fetching")),),
-        body: Homepage(),
-      ),
+    final _apiService = ApiService();
+    final _postApi = PostsApi();
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => UserBloc(_apiService)),
+        BlocProvider(create: (context) => UserListingCubit(_apiService)),
+        BlocProvider(create: (context) => PostsBloc(_postApi)),
+      ],
+      child: MaterialApp(home: HomePage()),
     );
   }
 }
