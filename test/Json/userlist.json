@@ -1,0 +1,72 @@
+[
+  {
+    "id": 8371804,
+    "name": "ayushman sharma",
+    "email": "ayush@gmail.com",
+    "gender": "male",
+    "status": "active"
+  },
+  {
+    "id": 8371706,
+    "name": "ram charan",
+    "email": "ramch@gmail.com",
+    "gender": "male",
+    "status": "active"
+  },
+  {
+    "id": 8371687,
+    "name": "Omkar Patil",
+    "email": "patilomkar@gmail.com",
+    "gender": "male",
+    "status": "active"
+  },
+  {
+    "id": 8370600,
+    "name": "Vrinda Saini",
+    "email": "vrinda_saini@smith.example",
+    "gender": "female",
+    "status": "inactive"
+  },
+  {
+    "id": 8370599,
+    "name": "Abhirath Deshpande",
+    "email": "abhirath_deshpande@herman.example",
+    "gender": "male",
+    "status": "active"
+  },
+  {
+    "id": 8370596,
+    "name": "Ashok Shah",
+    "email": "shah_ashok@willms.test",
+    "gender": "male",
+    "status": "inactive"
+  },
+  {
+    "id": 8370594,
+    "name": "Charuchandra Menon",
+    "email": "charuchandra_menon@jakubowski.example",
+    "gender": "female",
+    "status": "inactive"
+  },
+  {
+    "id": 8370592,
+    "name": "Ambar Somayaji",
+    "email": "somayaji_ambar@wintheiser.test",
+    "gender": "male",
+    "status": "inactive"
+  },
+  {
+    "id": 8370591,
+    "name": "Ms. Rita Pothuvaal",
+    "email": "rita_pothuvaal_ms@grimes.example",
+    "gender": "female",
+    "status": "inactive"
+  },
+  {
+    "id": 8370590,
+    "name": "Sanka Ahuja",
+    "email": "ahuja_sanka@wolf.example",
+    "gender": "female",
+    "status": "active"
+  }
+]
