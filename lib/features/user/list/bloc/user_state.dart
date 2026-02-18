@@ -8,9 +8,9 @@ final class UserInitial extends UserState {}
 class UserLoading extends UserState {}
 
 class UserLoaded extends UserState {
-  Usermodel usermodel;
+  List<Usermodel> users;
 
-  UserLoaded(this.usermodel);
+  UserLoaded(this.users);
 }
 
 class UserError extends UserState {

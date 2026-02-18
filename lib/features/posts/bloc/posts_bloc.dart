@@ -17,7 +17,7 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
       try {
         // List<PostModel>? postModel = await _postsApi.getPosts();
         PostModel postModel = await _postsApi.getPosts();
-        emit(PostsLoaded(postModel!));
+        emit(PostsLoaded(postModel));
       } catch (e) {
         emit(PostsError(e.toString()));
       }

@@ -9,6 +9,7 @@ import 'package:api_learning/features/user/list/ui/user_homepage_using_cubit.dar
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -37,10 +38,7 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => BlocProvider(
-                          create: (context) => UserBloc(ApiService()),
-                          child: UserHomepageUsingBloc(),
-                        ),
+                        builder: (_) => UserHomepageUsingBloc(),
                       ),
                     );
                   },
@@ -57,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => BlocProvider(
-                          create: (context) => UserListingCubit(ApiService()),
+                          create: (context) => UserListingCubit(),
                           child: UserHomepageCubit(),
                         ),
                       ),

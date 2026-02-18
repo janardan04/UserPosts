@@ -62,16 +62,13 @@ class _UserHomepageCubitState extends State<UserHomepageCubit> {
             );
           } else if (state is UserListingLoaded) {
             return ListView.builder(
-              itemCount: state.usermodel.users?.length,
+              itemCount: state.users?.length,
               itemBuilder: (context, index) {
-                final user = state.usermodel.users![index];
+                final user = state.users![index];
 
                 return ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(user.image!),
-                  ),
-                  title: Text(user.firstName.toString()),
-                  subtitle: Text(user.company!.name.toString()),
+                  title: Text(user.name.toString()),
+                  subtitle: Text(user.email.toString()),
                   textColor: Colors.deepPurple,
                 );
               },
