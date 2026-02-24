@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:api_learning/features/user/adduser/model/AddUserModel.dart';
 import 'package:api_learning/features/user/editUser/bloc/edit_user_bloc.dart';
+import 'package:api_learning/features/user/favourite/bloc/ui_state.dart';
 import 'package:api_learning/features/user/list/bloc/user_bloc.dart';
 import 'package:api_learning/features/user/list/model/user_model.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +35,9 @@ class _EditUserUiState extends State<EditUserUi> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<EditUserBloc, EditUserState>(
+    return BlocConsumer<EditUserBloc, UiState<Addusermodel>>(
       listener: (context, state) {
-        if (state is EditUserSuccess) {
+        if (state is Success<Addusermodel>) {
           context.read<UserBloc>().add(UserLoadEvent());
           Navigator.pop(context);
         }

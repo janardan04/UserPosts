@@ -21,7 +21,6 @@ class _UserHomepageCubitState extends State<UserHomepageCubit> {
       ),
       body: BlocConsumer<UserListingCubit, UserListingState>(
         listener: (context, state) {
-          // TODO: implement listener
           print(state);
         },
         builder: (context, state) {
@@ -64,7 +63,7 @@ class _UserHomepageCubitState extends State<UserHomepageCubit> {
             return ListView.builder(
               itemCount: state.users?.length,
               itemBuilder: (context, index) {
-                final user = state.users![index];
+                final user = state.users[index];
 
                 return ListTile(
                   title: Text(user.name.toString()),

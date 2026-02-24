@@ -15,6 +15,7 @@ class DeleteUserBloc extends Bloc<DeleteUserEvent, DeleteUserState> {
 
       try {
         String res = await apiservice.deleteUser(event.id);
+
         emit(DeleteSuccessfully(res));
       } catch (e) {
         emit(DeleteError(e.toString()));
