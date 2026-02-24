@@ -19,7 +19,6 @@ class AddUserBloc extends Bloc<AddUserEvent, UiState<AddUserModel>> {
           gender: event.gender,
           status: event.status,
         );
-
         await apiService.addUser(newUser);
         emit(Success(newUser));
       } catch (e) {
