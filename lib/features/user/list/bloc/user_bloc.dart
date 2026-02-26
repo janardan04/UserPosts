@@ -7,32 +7,20 @@ import 'package:meta/meta.dart';
 
 part 'user_event.dart';
 
-class UserBloc extends Bloc<UserEvent, UiState<List<Usermodel>>> {
+class UserBloc extends Bloc<UserEvent, UiState<List<UserModel>>> {
   UserRepo _userRepo;
 
   UserBloc({UserRepo? userRepo})
-    // UserBloc(Usermodel user , [UserRepo? userRepo])
-    // UserBloc(UserRepo? userRepo)
     : _userRepo = userRepo ?? UserRepo(),
       super(Initial()) {
     on<UserLoadEvent>((event, emit) async {
-      // switch(event){
-      //   case UserLoadEvent:
-      //     break;
-      //   case UserReloadEvent:
-      //     break;
-      // }
-      print('*** on Event added triggered for ${event}, now getting users');
-
       emit(Loading());
       try {
-        final List<Usermodel> users = await _userRepo.getDetails();
+        final List<UserModel> users = await _userRepo.getDetails();
         emit(Success(users));
       } catch (e) {
-        // throw Exception('');
         emit(Failure(e.toString()));
       }
-      // TODO: implement event handler
     });
   }
 }

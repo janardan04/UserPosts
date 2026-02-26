@@ -15,7 +15,7 @@ void main() {
 
   late UserRepo userRepo;
   late UserListingCubit userBloc;
-  late List<Usermodel> userList;
+  late List<UserModel> userList;
   group('User Listing', () {
     setUp(() {
       print("setUp");
@@ -30,7 +30,7 @@ void main() {
 
       final jsonMap = jsonDecode(jsonString);
 
-      userList = jsonMap.map<Usermodel>((e) => Usermodel.fromJson(e)).toList();
+      userList = jsonMap.map<UserModel>((e) => UserModel.fromJson(e)).toList();
     });
     blocTest<UserListingCubit, UserListingState>(
       ' for UserList '

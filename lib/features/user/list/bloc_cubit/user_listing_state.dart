@@ -8,7 +8,7 @@ final class UserListingInitial extends UserListingState {}
 class UserListingLoading extends UserListingState {}
 
 class UserListingLoaded extends UserListingState {
-  List<Usermodel> users;
+  List<UserModel> users;
 
   UserListingLoaded(this.users);
 }

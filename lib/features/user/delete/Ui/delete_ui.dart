@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DeleteUi extends StatelessWidget {
-  final Usermodel user;
+  final UserModel user;
 
   const DeleteUi({super.key, required this.user});
 
@@ -21,7 +21,7 @@ class DeleteUi extends StatelessWidget {
             const SnackBar(content: Text('User deleted successfully')),
           );
         } else if (state is Failure<String>) {
-          Navigator.pop(context); // Optional: closing the dialog on error
+          Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.errorMsg ?? 'Failed to delete user')),
           );

@@ -20,10 +20,7 @@ class _UserHomepageCubitState extends State<UserHomepageCubit> {
         backgroundColor: Colors.lightBlueAccent,
       ),
       body: BlocConsumer<UserListingCubit, UserListingState>(
-        listener: (context, state) {
-          // TODO: implement listener
-          print(state);
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           if (state is UserListingInitial) {
             return Stack(

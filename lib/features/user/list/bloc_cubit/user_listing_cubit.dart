@@ -16,10 +16,9 @@ class UserListingCubit extends Cubit<UserListingState> {
   getDetails() async {
     emit(UserListingLoading());
     try {
-      List<Usermodel> usermodel = await _userRepo.getDetails();
+      List<UserModel> usermodel = await _userRepo.getDetails();
       emit(UserListingLoaded(usermodel));
     } catch (e) {
-      print("Errorr===>> $e");
       emit(UserListingError(e.toString()));
     }
   }

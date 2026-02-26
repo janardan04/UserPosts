@@ -19,10 +19,8 @@ class _AddUserUiState extends State<AddUserUi> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
 
-  // final genderController = TextEditingController();
   String selectedGender = 'male';
 
-  // final statusController = TextEditingController();
   String status = 'active';
 
   @override
@@ -71,8 +69,6 @@ class _AddUserUiState extends State<AddUserUi> {
                   controller: emailController,
                   decoration: const InputDecoration(labelText: 'Email'),
                 ),
-                // const SizedBox(height: 5,),
-                // const Text('Gender'),
                 RadioGroup<String>(
                   groupValue: selectedGender,
                   onChanged: (value) {
@@ -89,8 +85,6 @@ class _AddUserUiState extends State<AddUserUi> {
                     ],
                   ),
                 ),
-                // const SizedBox(height: 10),
-                // const Text('Status'),
                 RadioGroup<String>(
                   groupValue: status,
                   onChanged: (value) {

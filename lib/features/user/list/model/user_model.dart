@@ -1,13 +1,13 @@
-class Usermodel {
+class UserModel {
   int? id;
   String? name;
   String? email;
   String? gender;
   String? status;
 
-  Usermodel({this.id, this.name, this.email, this.gender, this.status});
+  UserModel({this.id, this.name, this.email, this.gender, this.status});
 
-  Usermodel.fromJson(Map<String, dynamic> json) {
+  UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? '';
     name = json['name'] ?? '';
     email = json['email'] ?? '';

@@ -12,7 +12,7 @@ class UserRepo {
   UserRepo({ApiService? apiService})
     : _apiService = apiService ?? ApiService(client: http.Client());
 
-  Future<List<Usermodel>> getDetails() async {
+  Future<List<UserModel>> getDetails() async {
     return await _apiService.getDetails();
   }
 }

@@ -29,16 +29,14 @@ class _UserHomepageUiState extends State<UserHomepageUi> {
         title: const Text('Using the Bloc'),
         backgroundColor: Colors.deepPurple,
       ),
-      body: BlocConsumer<UserBloc, UiState<List<Usermodel>>>(
-        listener: (context, state) {
-          print(state);
-        },
+      body: BlocConsumer<UserBloc, UiState<List<UserModel>>>(
+        listener: (context, state) {},
         builder: (context, state) {
           if (state is Initial) {
             return Center(
               child: ElevatedButton(
                 onPressed: () {
-                  context.read<UserBloc>().add(UserLoadEvent()); //changes
+                  context.read<UserBloc>().add(UserLoadEvent());
                 },
                 child: Text('Display Users', style: TextStyle(fontSize: 20)),
                 style: ButtonStyle(
@@ -56,7 +54,7 @@ class _UserHomepageUiState extends State<UserHomepageUi> {
                 strokeAlign: 6,
               ),
             );
-          } else if (state is Success<List<Usermodel>>) {
+          } else if (state is Success<List<UserModel>>) {
             final users = state.data ?? [];
             return Stack(
               children: [
@@ -152,7 +150,7 @@ class _UserHomepageUiState extends State<UserHomepageUi> {
                 ),
               ],
             );
-          } else if (state is Failure<List<Usermodel>>) {
+          } else if (state is Failure<List<UserModel>>) {
             return Center(child: Text(state.errorMsg ?? "Unknown Error"));
           } else {
             return SizedBox.shrink();

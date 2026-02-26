@@ -12,7 +12,7 @@ class ApiService {
 
   final uri = 'https://gorest.co.in/public/v2/users';
 
-  Future<List<Usermodel>> getDetails() async {
+  Future<List<UserModel>> getDetails() async {
     var response = await client.get(
       Uri.parse(uri),
       headers: {
@@ -24,7 +24,7 @@ class ApiService {
 
     if (response.statusCode == 200) {
       final List<dynamic> user = jsonDecode(response.body);
-      return user.map<Usermodel>((e) => Usermodel.fromJson(e)).toList();
+      return user.map<UserModel>((e) => UserModel.fromJson(e)).toList();
     } else {
       throw Exception(response.reasonPhrase);
     }

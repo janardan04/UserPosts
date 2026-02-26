@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditUserUi extends StatefulWidget {
-  final Usermodel user;
+  final UserModel user;
 
   const EditUserUi({super.key, required this.user});
 

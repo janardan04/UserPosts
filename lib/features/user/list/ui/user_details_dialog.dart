@@ -1,7 +1,7 @@
 import 'package:api_learning/features/user/list/model/user_model.dart';
 import 'package:flutter/material.dart';
 
-void showUserDetailsDialog(BuildContext context, Usermodel data) {
+void showUserDetailsDialog(BuildContext context, UserModel data) {
   showDialog(
     context: context,
     builder: (context) {
