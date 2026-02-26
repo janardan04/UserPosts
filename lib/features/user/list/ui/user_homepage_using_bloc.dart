@@ -6,7 +6,6 @@ import 'package:api_learning/features/user/editUser/bloc/edit_user_bloc.dart';
 import 'package:api_learning/features/user/editUser/editUi/edit_user_ui.dart';
 import 'package:api_learning/features/user/favourite/bloc/favorites_bloc.dart';
 import 'package:api_learning/features/user/favourite/favorite_UI/list_favorite_users.dart';
-import 'package:api_learning/features/user/favourite/service/favorite_service.dart';
 import 'package:api_learning/features/user/list/api/api_service.dart';
 import 'package:api_learning/features/user/list/bloc/user_bloc.dart';
 import 'package:api_learning/features/user/list/model/user_model.dart';
