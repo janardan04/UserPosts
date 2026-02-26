@@ -6,11 +6,11 @@ import 'package:api_learning/features/user/editUser/bloc/edit_user_bloc.dart';
 import 'package:api_learning/features/user/editUser/editUi/edit_user_ui.dart';
 import 'package:api_learning/features/user/favourite/bloc/favorites_bloc.dart';
 import 'package:api_learning/features/user/favourite/favorite_UI/list_favorite_users.dart';
+import 'package:api_learning/features/user/favourite/service/favorite_service.dart';
 import 'package:api_learning/features/user/list/api/api_service.dart';
 import 'package:api_learning/features/user/list/bloc/user_bloc.dart';
 import 'package:api_learning/features/user/list/model/user_model.dart';
 import 'package:api_learning/features/user/list/ui/home_page.dart';
-import 'package:api_learning/features/user/list/ui/user_details_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -95,7 +95,36 @@ class _UserHomepageUsingBlocState extends State<UserHomepageUsingBloc> {
                     return ListTile(
                       title: Text(user.name ?? ""),
                       subtitle: Text(user.email ?? ""),
-                      onTap: () => showUserDetailsDialog(context, user),
+                      onTap: () => {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text(
+                                user.name!,
+                                style: TextStyle(
+                                  color: Colors.purple,
+                                  fontFamily: "Outfit",
+                                ),
+                              ),
+                              content: Row(
+                                children: [
+                                  Text(user.gender!.toUpperCase()),
+                                  Text(' '),
+                                  Text(
+                                    ' ${user.status!.toUpperCase()}',
+                                    style: TextStyle(
+                                      color: user.status! == 'active'
+                                          ? Colors.green
+                                          : Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      },
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -183,7 +212,7 @@ class _UserHomepageUsingBlocState extends State<UserHomepageUsingBloc> {
                   bottom: 80,
                   right: 30,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () => {
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -192,7 +221,7 @@ class _UserHomepageUsingBlocState extends State<UserHomepageUsingBloc> {
                             child: const AddUserUi(),
                           );
                         },
-                      );
+                      ),
                     },
                     child: Row(
                       children: [

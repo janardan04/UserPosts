@@ -4,7 +4,7 @@ part of 'delete_user_bloc.dart';
 sealed class DeleteUserEvent {}
 
 class DeleteEvent extends DeleteUserEvent {
-  final int id;
+  int id;
 
   DeleteEvent({required this.id});
 }
