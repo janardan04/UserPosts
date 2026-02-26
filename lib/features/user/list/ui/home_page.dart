@@ -1,10 +1,8 @@
 import 'package:api_learning/features/posts/apiService/posts_api.dart';
 import 'package:api_learning/features/posts/bloc/posts_bloc.dart';
 import 'package:api_learning/features/posts/ui/post_homepage.dart';
-import 'package:api_learning/features/user/list/api/api_service.dart';
-import 'package:api_learning/features/user/list/bloc/user_bloc.dart';
 import 'package:api_learning/features/user/list/bloc_cubit/user_listing_cubit.dart';
-import 'package:api_learning/features/user/list/ui/user_homepage_using_bloc.dart';
+import 'package:api_learning/features/user/list/ui/user_homepage_ui.dart';
 import 'package:api_learning/features/user/list/ui/user_homepage_using_cubit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,12 +34,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => BlocProvider(
-                          create: (context) => UserBloc(ApiService()),
-                          child: UserHomepageUsingBloc(),
-                        ),
-                      ),
+                      MaterialPageRoute(builder: (_) => UserHomepageUi()),
                     );
                   },
                   child: Text('BLOC', style: TextStyle(fontSize: 20)),
@@ -57,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => BlocProvider(
-                          create: (context) => UserListingCubit(ApiService()),
+                          create: (context) => UserListingCubit(),
                           child: UserHomepageCubit(),
                         ),
                       ),

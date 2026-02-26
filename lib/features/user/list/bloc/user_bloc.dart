@@ -1,33 +1,26 @@
+import 'package:api_learning/features/user/list/Repository/user_repo.dart';
 import 'package:api_learning/features/user/list/api/api_service.dart';
 import 'package:api_learning/features/user/list/model/user_model.dart';
+import 'package:api_learning/features/user/adduser/bloc/common_ui_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 part 'user_event.dart';
 
-part 'user_state.dart';
+class UserBloc extends Bloc<UserEvent, UiState<List<UserModel>>> {
+  UserRepo _userRepo;
 
-class UserBloc extends Bloc<UserEvent, UserState> {
-  ApiService _apiService;
-
-  UserBloc(this._apiService) : super(UserInitial()) {
+  UserBloc({UserRepo? userRepo})
+    : _userRepo = userRepo ?? UserRepo(),
+      super(Initial()) {
     on<UserLoadEvent>((event, emit) async {
-      // switch(event){
-      //   case UserLoadEvent:
-      //     break;
-      //   case UserReloadEvent:
-      //     break;
-      // }
-
-      emit(UserLoading());
+      emit(Loading());
       try {
-        final Usermodel? users = await _apiService.getDetails();
-        emit(UserLoaded(users!));
+        final List<UserModel> users = await _userRepo.getDetails();
+        emit(Success(users));
       } catch (e) {
-        // throw Exception('');
-        emit(UserError(e.toString()));
+        emit(Failure(e.toString()));
       }
-      // TODO: implement event handler
     });
   }
 }
