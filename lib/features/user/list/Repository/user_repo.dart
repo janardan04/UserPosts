@@ -17,7 +17,7 @@ class UserRepo {
     return await _apiService.getDetails();
   }
 
-  Future<Addusermodel> addUser(Addusermodel user) async {
+  Future<AddUserModel> addUser(AddUserModel user) async {
     return await _apiService.addUser(user);
   }
 }
