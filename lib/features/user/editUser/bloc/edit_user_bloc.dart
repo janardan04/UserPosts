@@ -6,14 +6,14 @@ import 'package:meta/meta.dart';
 
 part 'edit_user_event.dart';
 
-class EditUserBloc extends Bloc<EditUserEvent, UiState<Addusermodel>> {
+class EditUserBloc extends Bloc<EditUserEvent, UiState<AddUserModel>> {
   final ApiService apiService;
 
   EditUserBloc(this.apiService) : super(Initial()) {
     on<EditEvent>((event, emit) async {
       emit(Loading());
       try {
-        final user = Addusermodel(
+        final user = AddUserModel(
           name: event.name,
           email: event.email,
           gender: event.gender,

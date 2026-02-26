@@ -1,5 +1,5 @@
 import 'package:api_learning/features/user/favourite/bloc/favorites_bloc.dart';
-import 'package:api_learning/features/user/favourite/bloc/ui_state.dart';
+import 'package:api_learning/features/user/adduser/bloc/common_ui_state.dart';
 import 'package:api_learning/features/user/list/bloc/user_bloc.dart';
 import 'package:api_learning/features/user/list/model/user_model.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +13,13 @@ class ListFavoriteUsers extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Favorite Users')),
-      body: BlocBuilder<UserBloc, UiState<List<Usermodel>>>(
+      body: BlocBuilder<UserBloc, UiState<List<UserModel>>>(
         builder: (context, userState) {
           if (userState is Loading) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (userState is Success<List<Usermodel>>) {
+          if (userState is Success<List<UserModel>>) {
             final allUsers = userState.data ?? [];
 
             return BlocBuilder<FavoritesBloc, UiState<List<String>>>(
@@ -53,7 +53,7 @@ class ListFavoriteUsers extends StatelessWidget {
             );
           }
 
-          if (userState is Failure<List<Usermodel>>) {
+          if (userState is Failure<List<UserModel>>) {
             return Center(child: Text(userState.errorMsg ?? ""));
           }
 

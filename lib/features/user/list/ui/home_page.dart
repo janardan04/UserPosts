@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => UserHomepageUi()),
+                      MaterialPageRoute(builder: (_) => UserHomePageUi()),
                     );
                   },
                   child: Text('BLOC', style: TextStyle(fontSize: 20)),
