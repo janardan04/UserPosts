@@ -7,18 +7,21 @@ import 'package:api_learning/features/user/editUser/editUi/edit_user_ui.dart';
 import 'package:api_learning/features/user/list/api/api_service.dart';
 import 'package:api_learning/features/user/list/bloc/user_bloc.dart';
 import 'package:api_learning/features/user/list/model/user_model.dart';
+import 'package:api_learning/features/user/list/ui/user_details_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
-class UserHomepageUsingBloc extends StatefulWidget {
-  const UserHomepageUsingBloc({super.key});
+import '../../adduser/bloc/common_ui_state.dart';
+
+class UserHomepageUi extends StatefulWidget {
+  const UserHomepageUi({super.key});
 
   @override
-  State<UserHomepageUsingBloc> createState() => _UserHomepageUsingBlocState();
+  State<UserHomepageUi> createState() => _UserHomepageUiState();
 }
 
-class _UserHomepageUsingBlocState extends State<UserHomepageUsingBloc> {
+class _UserHomepageUiState extends State<UserHomepageUi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,12 +29,12 @@ class _UserHomepageUsingBlocState extends State<UserHomepageUsingBloc> {
         title: const Text('Using the Bloc'),
         backgroundColor: Colors.deepPurple,
       ),
-      body: BlocConsumer<UserBloc, UserState>(
+      body: BlocConsumer<UserBloc, UiState<List<Usermodel>>>(
         listener: (context, state) {
           print(state);
         },
         builder: (context, state) {
-          if (state is UserInitial) {
+          if (state is Initial) {
             return Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -45,7 +48,7 @@ class _UserHomepageUsingBlocState extends State<UserHomepageUsingBloc> {
                 ),
               ),
             );
-          } else if (state is UserLoading) {
+          } else if (state is Loading) {
             return Center(
               child: CircularProgressIndicator(
                 color: Colors.red,
@@ -53,47 +56,21 @@ class _UserHomepageUsingBlocState extends State<UserHomepageUsingBloc> {
                 strokeAlign: 6,
               ),
             );
-          } else if (state is UserLoaded) {
+          } else if (state is Success<List<Usermodel>>) {
+            final users = state.data ?? [];
             return Stack(
               children: [
                 Expanded(
                   child: ListView.builder(
-                    itemCount: state.users.length,
+                    itemCount: users.length,
                     itemBuilder: (context, index) {
-                      final data = state.users[index];
+                      final data = users[index];
 
                       return ListTile(
                         title: Text(data.name ?? ""),
                         subtitle: Text(data.email ?? ""),
-                        onTap: () => {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text(
-                                  data.name!,
-                                  style: TextStyle(
-                                    color: Colors.purple,
-                                    fontFamily: "Outfit",
-                                  ),
-                                ),
-                                content: Row(
-                                  children: [
-                                    Text(data.gender!.toUpperCase()),
-                                    Text(' '),
-                                    Text(
-                                      ' ' + data.status!.toUpperCase(),
-                                      style: TextStyle(
-                                        color: data.status! == 'active'
-                                            ? Colors.green
-                                            : Colors.red,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
+                        onTap: () {
+                          showUserDetailsDialog(context, data);
                         },
                         trailing: PopupMenuButton<String>(
                           onSelected: (value) {
@@ -175,8 +152,8 @@ class _UserHomepageUsingBlocState extends State<UserHomepageUsingBloc> {
                 ),
               ],
             );
-          } else if (state is UserError) {
-            return Center(child: Text(state.error));
+          } else if (state is Failure<List<Usermodel>>) {
+            return Center(child: Text(state.errorMsg ?? "Unknown Error"));
           } else {
             return SizedBox.shrink();
           }

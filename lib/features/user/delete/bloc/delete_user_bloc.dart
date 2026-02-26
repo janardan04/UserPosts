@@ -1,23 +1,24 @@
+import 'dart:ffi';
+
+import 'package:api_learning/features/user/adduser/bloc/common_ui_state.dart';
 import 'package:api_learning/features/user/list/api/api_service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 part 'delete_user_event.dart';
 
-part 'delete_user_state.dart';
-
-class DeleteUserBloc extends Bloc<DeleteUserEvent, DeleteUserState> {
+class DeleteUserBloc extends Bloc<DeleteUserEvent, UiState<String>> {
   final ApiService apiservice;
 
-  DeleteUserBloc(this.apiservice) : super(DeleteUserInitial()) {
+  DeleteUserBloc(this.apiservice) : super(Initial()) {
     on<DeleteEvent>((event, emit) async {
-      emit(DeleteUserInitial());
+      emit(Loading());
 
       try {
-        String res = await apiservice.deleteUser(event.id);
-        emit(DeleteSuccessfully(res));
+        await apiservice.deleteUser(event.id);
+        emit(Success(null));
       } catch (e) {
-        emit(DeleteError(e.toString()));
+        emit(Failure(e.toString()));
       }
     });
   }

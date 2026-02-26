@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:api_learning/features/user/adduser/bloc/common_ui_state.dart';
+import 'package:api_learning/features/user/adduser/model/add_user_model.dart';
 import 'package:api_learning/features/user/editUser/bloc/edit_user_bloc.dart';
 import 'package:api_learning/features/user/list/bloc/user_bloc.dart';
 import 'package:api_learning/features/user/list/model/user_model.dart';
@@ -20,22 +22,30 @@ class _EditUserUiState extends State<EditUserUi> {
   late final TextEditingController emailController;
   late final TextEditingController genderController;
   late final TextEditingController statusController;
-  late final TextEditingController idController;
 
+  @override
   void initState() {
     super.initState();
     nameController = TextEditingController(text: widget.user.name);
     emailController = TextEditingController(text: widget.user.email);
     genderController = TextEditingController(text: widget.user.gender);
     statusController = TextEditingController(text: widget.user.status);
-    idController = TextEditingController(text: widget.user.id.toString());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    genderController.dispose();
+    statusController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<EditUserBloc, EditUserState>(
+    return BlocConsumer<EditUserBloc, UiState<AddUserModel>>(
       listener: (context, state) {
-        if (state is EditUserSuccess) {
+        if (state is Success<AddUserModel>) {
           context.read<UserBloc>().add(UserLoadEvent());
           Navigator.pop(context);
         }
@@ -67,22 +77,30 @@ class _EditUserUiState extends State<EditUserUi> {
           ),
           actions: [
             ElevatedButton(
-              onPressed: () => {Navigator.pop(context)},
+              onPressed: () => Navigator.pop(context),
               child: Text('Cancel'),
             ),
             ElevatedButton(
-              onPressed: () => {
-                context.read<EditUserBloc>()..add(
-                  EditEvent(
-                    id: int.parse(idController.text),
-                    name: nameController.text,
-                    email: emailController.text,
-                    gender: genderController.text,
-                    status: statusController.text,
-                  ),
-                ),
-              },
-              child: Text('Save'),
+              onPressed: state is Loading
+                  ? null
+                  : () {
+                      context.read<EditUserBloc>().add(
+                        EditEvent(
+                          id: widget.user.id!,
+                          name: nameController.text,
+                          email: emailController.text,
+                          gender: genderController.text,
+                          status: statusController.text,
+                        ),
+                      );
+                    },
+              child: state is Loading
+                  ? const SizedBox(
+                      height: 18,
+                      width: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : Text('Save'),
             ),
           ],
         );

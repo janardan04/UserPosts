@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:core';
 
-import 'package:api_learning/features/user/adduser/model/AddUserModel.dart';
+import 'package:api_learning/features/user/adduser/model/add_user_model.dart';
 import 'package:api_learning/features/user/list/model/user_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -30,7 +30,7 @@ class ApiService {
     }
   }
 
-  Future<Addusermodel> addUser(Addusermodel user) async {
+  Future<AddUserModel> addUser(AddUserModel user) async {
     var response = await client.post(
       Uri.parse(uri),
       headers: {
@@ -42,13 +42,13 @@ class ApiService {
     );
     if (response.statusCode == 201) {
       final data = jsonDecode(response.body);
-      return Addusermodel.fromJson(data);
+      return AddUserModel.fromJson(data);
     } else {
       throw Exception("Failed to create user : ${response.body}");
     }
   }
 
-  Future<Addusermodel> editUser(int id, Addusermodel user) async {
+  Future<AddUserModel> editUser(int id, AddUserModel user) async {
     var response = await client.put(
       Uri.parse('https://gorest.co.in/public/v2/users/$id'),
       headers: {
@@ -60,7 +60,7 @@ class ApiService {
     );
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      return Addusermodel.fromJson(data);
+      return AddUserModel.fromJson(data);
     } else {
       throw Exception('Failed To Edit${response.reasonPhrase}');
     }

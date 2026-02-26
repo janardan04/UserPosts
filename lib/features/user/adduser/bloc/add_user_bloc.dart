@@ -1,22 +1,19 @@
-import 'package:api_learning/features/user/adduser/model/AddUserModel.dart';
+import 'package:api_learning/features/user/adduser/bloc/common_ui_state.dart';
+import 'package:api_learning/features/user/adduser/model/add_user_model.dart';
 import 'package:api_learning/features/user/list/api/api_service.dart';
-import 'package:api_learning/features/user/list/bloc/user_bloc.dart';
-import 'package:api_learning/features/user/list/model/user_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 part 'add_user_event.dart';
 
-part 'add_user_state.dart';
-
-class AddUserBloc extends Bloc<AddUserEvent, AddUserState> {
+class AddUserBloc extends Bloc<AddUserEvent, UiState<AddUserModel>> {
   final ApiService apiService;
 
-  AddUserBloc(this.apiService) : super(AddUserInitial()) {
+  AddUserBloc(this.apiService) : super(Initial()) {
     on<AddNewUserEvent>((event, emit) async {
-      emit(AddUserAddingState());
+      emit(Loading());
       try {
-        final newUser = Addusermodel(
+        final newUser = AddUserModel(
           name: event.name,
           email: event.email,
           gender: event.gender,
@@ -24,12 +21,11 @@ class AddUserBloc extends Bloc<AddUserEvent, AddUserState> {
         );
 
         await apiService.addUser(newUser);
-        emit(AddUserSuccessState());
+        emit(Success(newUser));
         print(newUser);
       } catch (e) {
-        emit(AddUserErrorState(e.toString()));
+        emit(Failure(e.toString()));
       }
-      emit(AddUserAddingState());
     });
   }
 }

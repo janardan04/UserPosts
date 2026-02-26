@@ -1,20 +1,19 @@
-import 'package:api_learning/features/user/adduser/model/AddUserModel.dart';
+import 'package:api_learning/features/user/adduser/bloc/common_ui_state.dart';
+import 'package:api_learning/features/user/adduser/model/add_user_model.dart';
 import 'package:api_learning/features/user/list/api/api_service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 part 'edit_user_event.dart';
 
-part 'edit_user_state.dart';
-
-class EditUserBloc extends Bloc<EditUserEvent, EditUserState> {
+class EditUserBloc extends Bloc<EditUserEvent, UiState<AddUserModel>> {
   final ApiService apiService;
 
-  EditUserBloc(this.apiService) : super(EditUserInitial()) {
+  EditUserBloc(this.apiService) : super(Initial()) {
     on<EditEvent>((event, emit) async {
-      emit(EditUserInitial());
+      emit(Loading());
       try {
-        final user = Addusermodel(
+        final user = AddUserModel(
           name: event.name,
           email: event.email,
           gender: event.gender,
@@ -22,9 +21,9 @@ class EditUserBloc extends Bloc<EditUserEvent, EditUserState> {
         );
 
         await apiService.editUser(event.id, user);
-        emit(EditUserSuccess());
+        emit(Success(user));
       } catch (e) {
-        emit(EditUserError(e.toString()));
+        emit(Failure(e.toString()));
       }
     });
   }
