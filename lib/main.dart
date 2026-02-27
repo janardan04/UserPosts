@@ -1,5 +1,6 @@
 import 'package:api_learning/features/posts/apiService/posts_api.dart';
 import 'package:api_learning/features/posts/bloc/posts_bloc.dart';
+import 'package:api_learning/features/syllabus/cubit/syllabus_cubit.dart';
 import 'package:api_learning/features/user/adduser/bloc/add_user_bloc.dart';
 import 'package:api_learning/features/user/favourite/bloc/favorites_bloc.dart';
 import 'package:api_learning/features/user/list/api/api_service.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         ),
 
         BlocProvider(create: (_) => FavoritesBloc()),
+        BlocProvider(create: (_) => SyllabusCubit()),
       ],
       child: MaterialApp(home: HomePage()),
     );
