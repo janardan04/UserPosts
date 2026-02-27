@@ -1,19 +1,17 @@
 import 'package:api_learning/features/user/list/Repository/user_repo.dart';
-import 'package:api_learning/features/user/list/api/api_service.dart';
 import 'package:api_learning/features/user/list/model/user_model.dart';
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 
 part 'user_listing_state.dart';
 
 class UserListingCubit extends Cubit<UserListingState> {
-  UserRepo _userRepo;
+  final UserRepo _userRepo;
 
   UserListingCubit({UserRepo? userRepo})
     : _userRepo = userRepo ?? UserRepo(),
       super(UserListingInitial());
 
-  getDetails() async {
+  Future<void> getDetails() async {
     emit(UserListingLoading());
     try {
       List<UserModel> usermodel = await _userRepo.getDetails();

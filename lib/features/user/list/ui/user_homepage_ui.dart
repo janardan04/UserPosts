@@ -4,46 +4,76 @@ import 'package:api_learning/features/user/delete/Ui/delete_ui.dart';
 import 'package:api_learning/features/user/delete/bloc/delete_user_bloc.dart';
 import 'package:api_learning/features/user/editUser/bloc/edit_user_bloc.dart';
 import 'package:api_learning/features/user/editUser/editUi/edit_user_ui.dart';
+import 'package:api_learning/features/user/favourite/bloc/favorites_bloc.dart';
+import 'package:api_learning/features/user/favourite/favorite_UI/list_favorite_users.dart';
 import 'package:api_learning/features/user/list/api/api_service.dart';
 import 'package:api_learning/features/user/list/bloc/user_bloc.dart';
 import 'package:api_learning/features/user/list/model/user_model.dart';
-import 'package:api_learning/features/user/list/ui/user_details_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
-import '../../adduser/bloc/common_ui_state.dart';
+import 'package:api_learning/features/user/adduser/bloc/common_ui_state.dart';
 
-class UserHomepageUi extends StatefulWidget {
-  const UserHomepageUi({super.key});
+class UserHomePageUi extends StatefulWidget {
+  const UserHomePageUi({super.key});
 
   @override
-  State<UserHomepageUi> createState() => _UserHomepageUiState();
+  State<UserHomePageUi> createState() => _UserHomePageUiState();
 }
 
-class _UserHomepageUiState extends State<UserHomepageUi> {
+class _UserHomePageUiState extends State<UserHomePageUi> {
+  FavoritesBloc? _favoritesBloc;
+  List<String> favoriteIds = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _favoritesBloc = context.read<FavoritesBloc>();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Using the Bloc'),
-        backgroundColor: Colors.deepPurple,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return ListFavoriteUsers();
+                    },
+                  ),
+                );
+              },
+              icon: Icon(Icons.favorite, color: Colors.red, size: 35),
+            ),
+          ],
+        ),
+        backgroundColor: Colors.lightBlueAccent,
       ),
-      body: BlocConsumer<UserBloc, UiState<List<UserModel>>>(
-        listener: (context, state) {},
+      body: BlocBuilder<UserBloc, UiState<List<UserModel>>>(
+        key: Key('BlocConsumer'),
         builder: (context, state) {
           if (state is Initial) {
             return Center(
               child: ElevatedButton(
                 onPressed: () {
-                  context.read<UserBloc>().add(UserLoadEvent());
+                  context.read<UserBloc>().add(UserLoadEvent()); //changes
                 },
-                child: Text('Display Users', style: TextStyle(fontSize: 20)),
                 style: ButtonStyle(
                   backgroundColor: WidgetStateProperty.all(
                     Colors.deepOrangeAccent,
                   ),
                 ),
+                child: Text('Display Users', style: TextStyle(fontSize: 20)),
               ),
             );
           } else if (state is Loading) {
@@ -55,24 +85,50 @@ class _UserHomepageUiState extends State<UserHomepageUi> {
               ),
             );
           } else if (state is Success<List<UserModel>>) {
-            final users = state.data ?? [];
             return Stack(
               children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: users.length,
-                    itemBuilder: (context, index) {
-                      final data = users[index];
-
-                      return ListTile(
-                        title: Text(data.name ?? ""),
-                        subtitle: Text(data.email ?? ""),
-                        onTap: () {
-                          showUserDetailsDialog(context, data);
-                        },
-                        trailing: PopupMenuButton<String>(
-                          onSelected: (value) {
-                            if (value == 'Edit') {
+                ListView.builder(
+                  itemCount: state.data?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    final user = state.data![index];
+                    return ListTile(
+                      title: Text(user.name ?? ""),
+                      subtitle: Text(user.email ?? ""),
+                      onTap: () => {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text(
+                                user.name!,
+                                style: TextStyle(
+                                  color: Colors.purple,
+                                  fontFamily: "Outfit",
+                                ),
+                              ),
+                              content: Row(
+                                children: [
+                                  Text(user.gender!.toUpperCase()),
+                                  Text(' '),
+                                  Text(
+                                    ' ${user.status!.toUpperCase()}',
+                                    style: TextStyle(
+                                      color: user.status! == 'active'
+                                          ? Colors.green
+                                          : Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      },
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            onPressed: () {
                               showDialog(
                                 context: context,
                                 builder: (_) {
@@ -80,11 +136,15 @@ class _UserHomepageUiState extends State<UserHomepageUi> {
                                     create: (_) => EditUserBloc(
                                       ApiService(client: http.Client()),
                                     ),
-                                    child: EditUserUi(user: data),
+                                    child: EditUserUi(user: user),
                                   );
                                 },
                               );
-                            } else if (value == 'Delete') {
+                            },
+                            icon: Icon(Icons.edit),
+                          ),
+                          IconButton(
+                            onPressed: () {
                               showDialog(
                                 context: context,
                                 builder: (_) {
@@ -92,38 +152,60 @@ class _UserHomepageUiState extends State<UserHomepageUi> {
                                     create: (_) => DeleteUserBloc(
                                       ApiService(client: http.Client()),
                                     ),
-                                    child: DeleteUi(user: data),
+                                    child: DeleteUi(user: user),
                                   );
                                 },
                               );
-                            }
-                          },
-                          itemBuilder: (context) => [
-                            PopupMenuItem(
-                              value: 'Edit',
-                              height: 20,
-                              child: Row(
-                                children: [
-                                  Icon(Icons.edit, size: 30),
-                                  SizedBox(width: 6),
-                                ],
-                              ),
-                            ),
-                            PopupMenuItem(
-                              value: 'Delete',
-                              height: 20,
-                              child: Row(
-                                children: [
-                                  Icon(Icons.delete, size: 30),
-                                  SizedBox(width: 6),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                            },
+                            icon: Icon(Icons.delete),
+                          ),
+                          BlocBuilder<FavoritesBloc, UiState<List<String>>>(
+                            bloc: _favoritesBloc,
+                            buildWhen: (prev, curr) {
+                              if (curr is Success) {
+                                return _favoritesBloc?.currentUser == user.id;
+                              }
+                              return false;
+                            },
+                            builder: (context, favState) {
+                              if (state is Loading) {
+                                return CircularProgressIndicator();
+                              }
+
+                              final isFav = _favoritesBloc?.isFavoriteUser(
+                                userId: user.id!,
+                              );
+                              return IconButton(
+                                onPressed: user.id != null
+                                    ? () {
+                                        final favoritesBloc = context
+                                            .read<FavoritesBloc>();
+                                        if (favoritesBloc.isFavoriteUser(
+                                          userId: user.id!,
+                                        )) {
+                                          favoritesBloc.removeFromFavorites(
+                                            userId: user.id!,
+                                          );
+                                        } else {
+                                          favoritesBloc.addToFavorites(
+                                            userId: user.id!,
+                                          );
+                                        }
+                                      }
+                                    : null,
+                                icon: Icon(
+                                  isFav == true
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: isFav == true ? Colors.red : null,
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
                 Positioned(
                   bottom: 80,
@@ -151,7 +233,7 @@ class _UserHomepageUiState extends State<UserHomepageUi> {
               ],
             );
           } else if (state is Failure<List<UserModel>>) {
-            return Center(child: Text(state.errorMsg ?? "Unknown Error"));
+            return Center(child: Text(state.errorMsg.toString()));
           } else {
             return SizedBox.shrink();
           }

@@ -2,7 +2,6 @@ import 'package:api_learning/features/user/adduser/bloc/common_ui_state.dart';
 import 'package:api_learning/features/user/adduser/model/add_user_model.dart';
 import 'package:api_learning/features/user/list/api/api_service.dart';
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 
 part 'add_user_event.dart';
 
@@ -19,7 +18,6 @@ class AddUserBloc extends Bloc<AddUserEvent, UiState<AddUserModel>> {
           gender: event.gender,
           status: event.status,
         );
-
         await apiService.addUser(newUser);
         emit(Success(newUser));
       } catch (e) {

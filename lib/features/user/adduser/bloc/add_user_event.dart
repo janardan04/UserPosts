@@ -1,6 +1,5 @@
 part of 'add_user_bloc.dart';
 
-@immutable
 sealed class AddUserEvent {}
 
 class AddNewUserEvent extends AddUserEvent {

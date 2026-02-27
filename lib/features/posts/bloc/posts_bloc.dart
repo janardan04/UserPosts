@@ -1,7 +1,6 @@
 import 'package:api_learning/features/posts/apiService/posts_api.dart';
 import 'package:api_learning/features/posts/model/postmodel.dart';
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 
 part 'posts_event.dart';
 

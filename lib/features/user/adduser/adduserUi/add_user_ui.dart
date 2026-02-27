@@ -3,7 +3,6 @@ import 'package:api_learning/features/user/adduser/model/add_user_model.dart';
 import 'package:api_learning/features/user/list/bloc/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/common_ui_state.dart';
@@ -35,7 +34,6 @@ class _AddUserUiState extends State<AddUserUi> {
     return BlocConsumer<AddUserBloc, UiState<AddUserModel>>(
       listener: (context, state) {
         if (state is Success<AddUserModel>) {
-          print('**** State is ${state}');
           context.read<UserBloc>().add(UserLoadEvent());
           Navigator.pop(context);
 

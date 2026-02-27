@@ -1,7 +1,5 @@
-import 'dart:convert';
-
+import 'package:api_learning/features/user/adduser/model/add_user_model.dart';
 import 'package:api_learning/features/user/list/api/api_service.dart';
-import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
 import '../model/user_model.dart';
@@ -14,5 +12,9 @@ class UserRepo {
 
   Future<List<UserModel>> getDetails() async {
     return await _apiService.getDetails();
+  }
+
+  Future<AddUserModel> addUser(AddUserModel user) async {
+    return await _apiService.addUser(user);
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:api_learning/features/posts/model/postmodel.dart';
 import 'package:http/http.dart' as http;
