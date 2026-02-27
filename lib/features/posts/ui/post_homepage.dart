@@ -17,10 +17,7 @@ class _PostHomepageState extends State<PostHomepage> {
         title: const Text('Posts Homepage'),
         backgroundColor: Colors.red,
       ),
-      body: BlocConsumer<PostsBloc, PostsState>(
-        listener: (context, state) {
-          print(state);
-        },
+      body: BlocBuilder<PostsBloc, PostsState>(
         builder: (context, state) {
           if (state is PostsInitial) {
             return Stack(

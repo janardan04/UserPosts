@@ -4,7 +4,6 @@ import 'package:api_learning/features/posts/ui/post_homepage.dart';
 import 'package:api_learning/features/user/list/bloc_cubit/user_listing_cubit.dart';
 import 'package:api_learning/features/user/list/ui/user_homepage_ui.dart';
 import 'package:api_learning/features/user/list/ui/user_homepage_using_cubit.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,12 +36,12 @@ class _HomePageState extends State<HomePage> {
                       MaterialPageRoute(builder: (_) => UserHomePageUi()),
                     );
                   },
-                  child: Text('BLOC', style: TextStyle(fontSize: 20)),
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all(
                       Colors.lightBlueAccent,
                     ),
                   ),
+                  child: Text('BLOC', style: TextStyle(fontSize: 20)),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -56,10 +55,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   },
-                  child: Text('CUBIT', style: TextStyle(fontSize: 20)),
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all(Colors.green),
                   ),
+                  child: Text('CUBIT', style: TextStyle(fontSize: 20)),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -73,10 +72,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   },
-                  child: Text('Posts', style: TextStyle(fontSize: 20)),
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all(Colors.grey),
                   ),
+                  child: Text('Posts', style: TextStyle(fontSize: 20)),
                 ),
               ],
             ),

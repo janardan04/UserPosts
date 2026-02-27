@@ -17,12 +17,8 @@ void main() {
   late UserListingCubit userBloc;
   late List<UserModel> userList;
   group('User Listing', () {
-    setUp(() {
-      print("setUp");
-    });
+    setUp(() {});
     setUpAll(() async {
-      print("setUpAll");
-
       userRepo = MockUserRepo();
       userBloc = UserListingCubit(userRepo: userRepo);
       final file = File('test/Json/userlist.json');
@@ -39,7 +35,6 @@ void main() {
 
       build: () {
         when(() => userRepo.getDetails()).thenAnswer((_) async {
-          print("UserList-===> $userList");
           return userList;
         });
         return userBloc;

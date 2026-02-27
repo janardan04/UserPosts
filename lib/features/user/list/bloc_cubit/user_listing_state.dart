@@ -1,6 +1,5 @@
 part of 'user_listing_cubit.dart';
 
-@immutable
 sealed class UserListingState {}
 
 final class UserListingInitial extends UserListingState {}

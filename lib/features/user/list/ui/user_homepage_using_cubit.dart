@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -59,9 +58,9 @@ class _UserHomepageCubitState extends State<UserHomepageCubit> {
             );
           } else if (state is UserListingLoaded) {
             return ListView.builder(
-              itemCount: state.users?.length,
+              itemCount: state.users.length,
               itemBuilder: (context, index) {
-                final user = state.users![index];
+                final user = state.users[index];
 
                 return ListTile(
                   title: Text(user.name.toString()),

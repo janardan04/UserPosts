@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:api_learning/features/user/adduser/model/add_user_model.dart';
 import 'package:api_learning/features/user/list/api/api_service.dart';
-import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
 import '../model/user_model.dart';

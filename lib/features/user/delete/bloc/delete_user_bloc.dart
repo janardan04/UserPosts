@@ -1,10 +1,6 @@
-import 'dart:ffi';
-
 import 'package:api_learning/features/user/adduser/bloc/common_ui_state.dart';
 import 'package:api_learning/features/user/list/api/api_service.dart';
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-
 part 'delete_user_event.dart';
 
 class DeleteUserBloc extends Bloc<DeleteUserEvent, UiState<String>> {
