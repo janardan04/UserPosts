@@ -2,7 +2,6 @@ import 'package:api_learning/features/posts/apiService/posts_api.dart';
 import 'package:api_learning/features/posts/bloc/posts_bloc.dart';
 import 'package:api_learning/features/posts/ui/post_homepage.dart';
 import 'package:api_learning/features/user/adduser/bloc/add_user_bloc.dart';
-import 'package:api_learning/features/user/adduser/bloc/common_ui_state.dart';
 import 'package:api_learning/features/user/favourite/bloc/favorites_bloc.dart';
 import 'package:api_learning/features/user/list/Repository/user_repo.dart';
 import 'package:api_learning/features/user/list/api/api_service.dart';
@@ -35,7 +34,7 @@ class MyApp extends StatelessWidget {
           create: (context) => AddUserBloc(ApiService(client: http.Client())),
         ),
 
-        BlocProvider(create: (_) => FavoritesBloc(Initial())),
+        BlocProvider(create: (_) => FavoritesBloc()),
       ],
       child: MaterialApp(home: HomePage()),
     );
