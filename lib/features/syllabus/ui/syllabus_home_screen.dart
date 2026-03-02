@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:api_learning/features/syllabus/cubit/syllabus_cubit.dart';
 import 'package:api_learning/features/syllabus/model/syllabus_model.dart';
 import 'package:api_learning/features/syllabus/ui/syllabus_detail_ui.dart';
@@ -93,6 +95,8 @@ class _SyllabusHomeScreenState extends State<SyllabusHomeScreen> {
                 );
               },
             );
+          } else if (state is Failure<List<SyllabusModel>>) {
+            return Center(child: Text(state.errorMsg!));
           } else {
             return SizedBox.shrink();
           }

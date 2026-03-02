@@ -1,9 +1,10 @@
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 class AiService {
-  final String _apiKey = 'AIzaSyDmBfljrs2u9btl-ajn1qlvAg3Zf-iHtuk';
+  static const _apiKey = String.fromEnvironment('GEMINI_API_KEY');
 
   Future<String> generateSyllabus(String topic) async {
+    print(_apiKey);
     final model = GenerativeModel(
       model: 'gemini-2.5-flash',
       apiKey: _apiKey,
