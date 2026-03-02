@@ -1,5 +1,6 @@
 import 'package:api_learning/features/syllabus/cubit/syllabus_cubit.dart';
 import 'package:api_learning/features/syllabus/model/syllabus_model.dart';
+import 'package:api_learning/features/syllabus/ui/syllabus_detail_ui.dart';
 import 'package:api_learning/features/user/adduser/bloc/common_ui_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,7 +51,18 @@ class _SyllabusHomeScreenState extends State<SyllabusHomeScreen> {
       body: BlocBuilder<SyllabusCubit, UiState<List<SyllabusModel>>>(
         builder: (context, state) {
           if (state is Loading) {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  Text(
+                    'Generating Syllabus',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            );
           } else if (state is Success<List<SyllabusModel>>) {
             final syllabi = state.data ?? [];
             if (syllabi.isEmpty) {
@@ -68,7 +80,16 @@ class _SyllabusHomeScreenState extends State<SyllabusHomeScreen> {
                     },
                     icon: Icon(Icons.delete),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return SyllabusDetailUi(item: item);
+                        },
+                      ),
+                    );
+                  },
                 );
               },
             );

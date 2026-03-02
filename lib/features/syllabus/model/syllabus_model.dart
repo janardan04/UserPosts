@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class SyllabusModel {
   final int? id;
   final String title;

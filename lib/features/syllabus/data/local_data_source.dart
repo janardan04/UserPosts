@@ -7,7 +7,7 @@ class LocalDataSource {
   LocalDataSource([DbHelper? dbHelper])
     : _dbHelper = dbHelper ?? DbHelper.instance;
 
-  Future<SyllabusModel> insertSyllabus(SyllabusModel syllabusModel) async {
+  Future<SyllabusModel> insertSyllabusDb(SyllabusModel syllabusModel) async {
     final db = await _dbHelper.database;
     final id = await db.insert('syllabus', syllabusModel.toMap());
     return SyllabusModel(
@@ -17,7 +17,7 @@ class LocalDataSource {
     );
   }
 
-  Future<List<SyllabusModel>> getSyllabus() async {
+  Future<List<SyllabusModel>> getSyllabusDb() async {
     final db = await _dbHelper.database;
 
     final result = await db.query('syllabus', orderBy: 'id DESC');
@@ -25,7 +25,7 @@ class LocalDataSource {
     return result.map((e) => SyllabusModel.fromMap(e)).toList();
   }
 
-  Future<void> deleteSyllabus(int id) async {
+  Future<void> deleteSyllabusDb(int id) async {
     final db = await _dbHelper.database;
     await db.delete('syllabus', where: 'id = ?', whereArgs: [id]);
   }

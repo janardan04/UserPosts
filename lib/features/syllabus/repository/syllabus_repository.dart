@@ -20,14 +20,14 @@ class SyllabusRepository {
       contentJson: res,
     );
 
-    return await _localDataSource.insertSyllabus(model);
+    return await _localDataSource.insertSyllabusDb(model);
   }
 
   Future<List<SyllabusModel>> getSyllabus() async {
-    return await _localDataSource.getSyllabus();
+    return await _localDataSource.getSyllabusDb();
   }
 
   Future<void> deleteSyllabus(int id) async {
-    await _localDataSource.deleteSyllabus(id);
+    await _localDataSource.deleteSyllabusDb(id);
   }
 }
