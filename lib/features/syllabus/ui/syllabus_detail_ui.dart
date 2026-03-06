@@ -42,18 +42,22 @@ class SyllabusDetailUi extends StatelessWidget {
                     'Topics:',
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
-                  for (var i = 0; i < module.topics.length; i++)
-                    Text(' ${i + 1}. ${module.topics[i]}'),
-
-                  SizedBox(height: 8),
-
+                  ...module.topics.map(
+                    (topic) => Padding(
+                      padding: const EdgeInsets.only(left: 8, bottom: 4),
+                      child: Text('• $topic'),
+                    ),
+                  ),
                   Text(
                     'Learning Outcomes:',
                     style: TextStyle(fontWeight: FontWeight.w600),
                   ),
-
-                  for (var i = 0; i < module.learningOutcomes.length; i++)
-                    Text('  ${i + 1}. ${module.learningOutcomes[i]}'),
+                  ...module.learningOutcomes.map(
+                    (outcomes) => Padding(
+                      padding: const EdgeInsets.only(left: 8, bottom: 4),
+                      child: Text('• $outcomes'),
+                    ),
+                  ),
                 ],
               ),
             ),

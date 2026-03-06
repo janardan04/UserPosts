@@ -26,7 +26,9 @@ class ApiService {
       final List<dynamic> user = jsonDecode(response.body);
       return user.map<UserModel>((e) => UserModel.fromJson(e)).toList();
     } else {
-      throw Exception(response.reasonPhrase);
+      throw Exception(
+        "Server Problem Your code is correct ${response.reasonPhrase}",
+      );
     }
   }
 

@@ -8,7 +8,11 @@ class SyllabusModel {
   SyllabusModel({this.id, required this.title, required this.contentJson});
 
   Map<String, dynamic> toMap() {
-    return {'id': id, 'title': title, 'content_json': contentJson};
+    return <String, dynamic>{
+      'id': id,
+      'title': title,
+      'content_json': contentJson,
+    };
   }
 
   factory SyllabusModel.fromMap(Map<String, dynamic> map) {

@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => FavoritesBloc()),
         BlocProvider(create: (_) => SyllabusCubit()),
       ],
-      child: MaterialApp(home: HomePage()),
+      child: MaterialApp(debugShowCheckedModeBanner: false, home: HomePage()),
     );
   }
 }

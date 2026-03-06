@@ -41,7 +41,7 @@ class _SyllabusHomeScreenState extends State<SyllabusHomeScreen> {
           IconButton(
             onPressed: () {
               final topic = _topicController.text.trim();
-              if (!topic.isEmpty) {
+              if (topic.isNotEmpty) {
                 context.read<SyllabusCubit>().generateAndSave(topic);
                 _topicController.clear();
               }

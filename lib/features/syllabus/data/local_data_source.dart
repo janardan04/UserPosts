@@ -1,5 +1,6 @@
 import 'package:api_learning/features/syllabus/data/db_helper.dart';
 import 'package:api_learning/features/syllabus/model/syllabus_model.dart';
+import 'package:sqflite/sql.dart';
 
 class LocalDataSource {
   final DbHelper _dbHelper;
@@ -9,7 +10,11 @@ class LocalDataSource {
 
   Future<SyllabusModel> insertSyllabusDb(SyllabusModel syllabusModel) async {
     final db = await _dbHelper.database;
-    final id = await db.insert('syllabus', syllabusModel.toMap());
+    final id = await db.insert(
+      'syllabus',
+      syllabusModel.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
     return SyllabusModel(
       id: id,
       title: syllabusModel.title,
