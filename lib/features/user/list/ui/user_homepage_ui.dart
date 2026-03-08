@@ -1,3 +1,4 @@
+import 'package:api_learning/features/syllabus/ui/syllabus_home_screen.dart';
 import 'package:api_learning/features/user/adduser/adduserUi/add_user_ui.dart';
 import 'package:api_learning/features/user/adduser/bloc/add_user_bloc.dart';
 import 'package:api_learning/features/user/delete/Ui/delete_ui.dart';
@@ -54,6 +55,19 @@ class _UserHomePageUiState extends State<UserHomePageUi> {
                 );
               },
               icon: Icon(Icons.favorite, color: Colors.red, size: 35),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return SyllabusHomeScreen();
+                    },
+                  ),
+                );
+              },
+              icon: Icon(Icons.add),
             ),
           ],
         ),
